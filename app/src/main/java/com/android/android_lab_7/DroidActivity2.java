@@ -44,7 +44,8 @@ public class DroidActivity2 extends AppCompatActivity {
         mBatteryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String a = Integer.toString(getBatteryLevel());
+                int a = (int)getBatteryLevel();
+              //  String a = Float.toString(getBatteryLevel());
                 mExpressionTextView.setText("Заряд батареи " + a + "%");
             }
         });
@@ -75,15 +76,15 @@ public class DroidActivity2 extends AppCompatActivity {
     }
 
 
-    public int getBatteryLevel() {
+    public float getBatteryLevel() {
         Intent batteryIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         if (level == -1 || scale == -1) {
-            return 50;
+            return 50f;
         }
 
-        return (level / scale) * 100;
+        return (float)((float)level / (float)scale) * 100f;
     }
 
     public void wifiEnableTrue() {
